@@ -11,9 +11,9 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            aws s3 rm s3://udapeople-<< parameters.workflow_id >> --recursive
-            aws cloudformation delete-stack --stack-name udapeople-fe-<< parameters.workflow_id >>
-            aws cloudformation delete-stack --stack-name udapeople-be-<< parameters.workflow_id >>
+            aws s3 rm s3://udacity-<< parameters.workflow_id >> --recursive
+            aws cloudformation delete-stack --stack-name udacity-fe-<< parameters.workflow_id >>
+            aws cloudformation delete-stack --stack-name udacity-be-<< parameters.workflow_id >>
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -109,6 +109,7 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm audit fix --audit-level=critical --force
             npm audit fix --force
             npm audit --audit-level=critical
 
@@ -143,7 +144,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=be-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name udapeople-be-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name udacity-be-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Ensure frontend infrastructure exist
@@ -151,7 +152,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=fe-${CIRCLE_WORKFLOW_ID:0:7} \
-              --stack-name udapeople-fe-${CIRCLE_WORKFLOW_ID:0:7} \
+              --stack-name udacity-fe-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}
       - run:
           name: Add backend IP to ansible inventory
@@ -243,7 +244,7 @@ jobs:
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            aws s3 cp dist s3://udacity-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations:
@@ -298,7 +299,7 @@ jobs:
       - run:
           name: Frontend smoke test.
           command: |
-            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
+            URL="http://udacity-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com/#/employees"            
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
@@ -335,9 +336,9 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file .circleci/files/cloudfront.yml \
-            --stack-name udapeople-cf \
+            --stack-name udacity-cf \
             --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
-            --tags project=udapeople
+            --tags project=udacity
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations:
@@ -367,9 +368,9 @@ jobs:
             then
               echo "--------------------Delete Confirmed--------------------"
               echo ${OldWorkflowID}
-              aws s3 rm s3://udapeople-${OldWorkflowID} --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-be-${OldWorkflowID}"
-              aws cloudformation delete-stack --stack-name "udapeople-fe-${OldWorkflowID}"
+              aws s3 rm s3://udacity-${OldWorkflowID} --recursive
+              aws cloudformation delete-stack --stack-name "udacity-be-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "udacity-fe-${OldWorkflowID}"
             else  
               echo "--------------------Cannot Cleanup--------------------"
             fi
