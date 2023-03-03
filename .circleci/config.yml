@@ -381,6 +381,7 @@ workflows:
     jobs:
       - build-frontend
       - build-backend
+      - deploy-infrastructure
       - test-frontend:
           requires:
             - build-frontend
