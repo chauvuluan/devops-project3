@@ -381,7 +381,6 @@ workflows:
     jobs:
       - build-frontend
       - build-backend
-      - configure-infrastructure
       - test-frontend:
           requires:
             - build-frontend
@@ -402,7 +401,7 @@ workflows:
           - scan-backend
           filters:
             branches:
-              only: [master]
+              only: [main]
       - configure-infrastructure:
           requires: 
           - deploy-infrastructure
