@@ -274,8 +274,11 @@ jobs:
           command: |
             pwd &&
             ls -la
-            tar czf backend.tar.gz backend/
-            export ANSIBLE_HOST_KEY_CHECKING=false
+            cd backend
+            npm i
+            npm run build
+            cd ..
+            tar -C backend -czvf artifact.tar.gz 
             cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
             cd ~
