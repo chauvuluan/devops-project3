@@ -347,4 +347,3 @@ workflows:
           - run-migrations
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
-          
