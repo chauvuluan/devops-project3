@@ -280,6 +280,8 @@ jobs:
             cd ..
             pwd
             ls
+            cd /root/project
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       # - destroy-environment:
