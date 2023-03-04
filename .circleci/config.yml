@@ -257,7 +257,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["b7:0b:b8:16:30:dc:89:db:54:29:86:81:a7:8e:c7:73"]
       - attach_workspace:
-          at: ~/
+          at: .
       - run:
           name: Install dependencies
           command: |
@@ -268,6 +268,8 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            pwd &&
+            ls -la
             cd .circleci/ansible
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment:
