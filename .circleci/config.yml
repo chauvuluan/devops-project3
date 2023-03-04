@@ -2,7 +2,7 @@ version: 2.1
 
 commands:
   destroy-environment:
-    description: Destroy BE and FE cloudformation stacks given a workflow ID.....
+    description: Destroy BE and FE cloudformation stacks given a workflow ID.
     parameters:
       workflow_id:
         type: string
