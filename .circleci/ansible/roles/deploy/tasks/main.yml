@@ -6,7 +6,7 @@
 
 - name: Copy folder to host
   copy:
-    src: ./root/project/backend
+    src: ~/project/backend
     dest: ~/backend_dir 
 
 - name: Executing node
