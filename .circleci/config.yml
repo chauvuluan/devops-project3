@@ -177,7 +177,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["b7:0b:b8:16:30:dc:89:db:54:29:86:81:a7:8e:c7:73"]
       - attach_workspace:
-          at: ~/
+          at: .
       - run:
           name: Install dependencies
           command: |
@@ -188,8 +188,8 @@ jobs:
           command: |
             pwd &&
             ls -la
-            cat inventory
-            ansible-playbook -i inventory configure-server.yaml
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   run-migrations:
@@ -257,7 +257,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["b7:0b:b8:16:30:dc:89:db:54:29:86:81:a7:8e:c7:73"]
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Install dependencies
           command: |
