@@ -272,7 +272,6 @@ jobs:
             aws --version
       - run:
           name: Deploy backend
-          no_output_timeout: 15m
           command: |
             pwd &&
             ls -la
