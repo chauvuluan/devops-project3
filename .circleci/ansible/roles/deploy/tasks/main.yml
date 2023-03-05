@@ -3,7 +3,25 @@
   file:
     path: ~/backend_ec2
     state: directory
+- name: "Add Install nodejs "
+  become: true
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
+- name: "Install node 13"
+  become: true
+  apt:
+    name: ["nodejs"]
+    update_cache: yes
+
+
+- name: "Install pm2"
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
 - name: Copy folder to host
   copy:
     src: ~/project/artifact.tar.gz
@@ -14,7 +32,7 @@
     cd /home/ubuntu/backend_ec2
     tar -vxf artifact.tar.gz
     rm artifact.tar.gz
-- name: Executing node
+- name: start backend
   shell: |
     cd ~/backend_ec2/dist
     pm2 stop default
