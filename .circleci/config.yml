@@ -193,7 +193,7 @@ jobs:
             cat ./.circleci/ansible/inventory.txt
             pwd
             export ANSIBLE_HOST_KEY_CHECKING=false
-            ansible-playbook -i ./root/project/.circleci/ansible/inventory.txt ./root/project/.circleci/ansible/configure-server.yml
+            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml
             cd ~
             pwd
       # - destroy-environment:
