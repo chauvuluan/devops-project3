@@ -191,10 +191,9 @@ jobs:
             pwd &&
             ls -la
             cat ./.circleci/ansible/inventory.txt
-            cd .circleci/ansible
             pwd
             export ANSIBLE_HOST_KEY_CHECKING=false
-            ansible-playbook -i /root/project/.circleci/ansible/inventory.txt /root/project/.circleci/ansible/configure-server.yml
+            ansible-playbook -i ./root/project/.circleci/ansible/inventory.txt ./root/project/.circleci/ansible/configure-server.yml
             cd ~
             pwd
       # - destroy-environment:
