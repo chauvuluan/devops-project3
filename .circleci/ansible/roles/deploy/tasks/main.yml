@@ -3,18 +3,19 @@
   file:
     path: ~/backend_ec2
     state: directory
+- name: "Update apt packages."
+  become: true
+  apt:
+    update_cache: yes
 - name: "Add Install nodejs "
   become: true
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-
 - name: "Install node 13"
   become: true
   apt:
     name: ["nodejs"]
     update_cache: yes
-
-
 - name: "Install pm2"
   become: true
   npm:
