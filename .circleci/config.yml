@@ -282,7 +282,7 @@ jobs:
             pwd
             ls
             cd /root/project
-            tar czf backend.tar.gz backend/
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
