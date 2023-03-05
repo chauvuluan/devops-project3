@@ -1,20 +1,20 @@
 ---
 - name: Creates directory
   file:
-    path: ~/backend_dir
+    path: ~/backend_ec2
     state: directory
 
 - name: Copy folder to host
   copy:
-    src: ~/project/backend
-    dest: ~/backend_dir 
+    src: ~/project/artifact.tar.gz
+    dest: ~/backend_ec2 
 
-- name: Executing node
-  shell: |
-    cd ~/backend_dir/backend
-    npm install
-    npm run build
-    pm2 start npm -- start
-- name: Sleep 10s to wait server before smoke-test
-  ansible.builtin.pause:
-    seconds: 10
+# - name: Executing node
+#   shell: |
+#     cd ~/backend_ec2/backend
+#     npm install
+#     npm run build
+#     pm2 start npm -- start
+# - name: Sleep 10s to wait server before smoke-test
+#   ansible.builtin.pause:
+#     seconds: 10
