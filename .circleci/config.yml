@@ -189,6 +189,7 @@ jobs:
             pwd &&
             ls -la
             cd .circleci/ansible
+            cat inventory.txt
             ansible-playbook -i inventory.txt configure-server.yml
             cd ~
             pwd
@@ -206,10 +207,10 @@ jobs:
             npm install
             npm run migrations > ~/project/backend/migrations_dump.txt
             cat ~/project/backend/migrations_dump.txt
-            cd ..
       - run:
           name: Send migration status to kvdb.io
           command: |
+            cat ~/project/backend/migrations_dump.txt
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               curl --insecure https://kvdb.io/S3ohcon1XjLXR6Mqedvp/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
@@ -283,8 +284,9 @@ jobs:
             cd /root/project
             tar czf backend.tar.gz backend/
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt deploy-backend.yml
             cat inventory.txt
+            ansible-playbook -i inventory.txt deploy-backend.yml
+            
       # - destroy-environment:
       #     workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       # - revert-migrations:
