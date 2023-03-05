@@ -16,10 +16,10 @@
     rm artifact.tar.gz
 - name: Executing node
   shell: |
-    cd ~/backend_ec2
-    npm install
-    npm run build
+    cd ~/backend_ec2/dist
+    pm2 stop default
     pm2 start npm -- start
+    pm2 ls
 - name: Sleep 10s to wait server before smoke-test
   ansible.builtin.pause:
     seconds: 10
