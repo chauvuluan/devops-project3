@@ -165,9 +165,10 @@ jobs:
             cd ~
 
       - persist_to_workspace:
-          root: ~/
+          root: .
           paths:
-            - project/.circleci/ansible/inventory.txt
+          - ./.circleci/ansible/inventory.txt
+            # - project/.circleci/ansible/inventory.txt
       # - destroy-environment:
       #     workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
   configure-infrastructure:
@@ -189,8 +190,11 @@ jobs:
           command: |
             pwd &&
             ls -la
+            cat ./.circleci/ansible/inventory.txt
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt configure-server.yml
+            pwd
+            export ANSIBLE_HOST_KEY_CHECKING=false
+            ansible-playbook -i ./.circleci/ansible/inventory.txt ./.circleci/ansible/configure-server.yml
             cd ~
             pwd
       # - destroy-environment:
