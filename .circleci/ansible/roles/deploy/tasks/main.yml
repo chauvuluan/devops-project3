@@ -16,7 +16,7 @@
     rm artifact.tar.gz
 - name: Executing node
   shell: |
-    cd ~/backend_ec2/backend
+    cd ~/backend_ec2
     npm install
     npm run build
     pm2 start npm -- start
