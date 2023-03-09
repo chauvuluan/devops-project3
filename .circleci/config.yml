@@ -345,8 +345,13 @@ jobs:
           command: |
             yum install -y tar gzip
       - run:
-          name: Update cloudfront distribution
+          name: Update cloudfront
           command: |
+            export WorkflowID=$(aws cloudformation \
+                  list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+                  --no-paginate --output text)
+            echo ${WorkflowID} >> ~/WorkflowID.txt
+            cat ~/WorkflowID.txt
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --stack-name InitialStack \
@@ -356,7 +361,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - OldWorkflowID.txt
+            - WorkflowID.txt
       - destroy-environment
       - revert-migrations
 
