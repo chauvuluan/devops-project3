@@ -360,7 +360,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - WorkflowID02.txt
+            - project/WorkflowID02.txt
       - destroy-environment:
           workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"
       - revert-migrations:
