@@ -388,7 +388,6 @@ jobs:
             else
               echo "Cannot Cleanup "
             fi
-      - slack_notify
 workflows:
   default:
     jobs:
