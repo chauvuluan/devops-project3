@@ -282,7 +282,6 @@ jobs:
             npm run build
             cd ..
             pwd
-            ls
             cd /root/project
             tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
