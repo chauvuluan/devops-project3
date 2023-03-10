@@ -381,7 +381,7 @@ jobs:
             WorkflowID02=$(cat ~/WorkflowID02.txt)
             if [[ "${WorkflowID02}" != "${CIRCLE_WORKFLOW_ID:0:7}"  ]]
             then
-              aws s3 rm "s3://udapeople-${WorkflowID02}" --recursive
+              aws s3 rm "s3://udacity-${WorkflowID02}" --recursive
               aws cloudformation delete-stack --stack-name "udacity-be-${WorkflowID02}"
               aws cloudformation delete-stack --stack-name "udacity-frontend-${WorkflowID02}"
             else
