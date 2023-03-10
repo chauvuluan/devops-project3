@@ -378,7 +378,7 @@ jobs:
           command: |
             cat ~/WorkflowID02.txt
             WorkflowID02=$(cat ~/WorkflowID02.txt)
-            echo WorkflowID: ${WorkflowID02}
+            echo WorkflowIDold: ${WorkflowID02}
             if [[ "${WorkflowID02}" != "${CIRCLE_WORKFLOW_ID:0:7}"  ]]
             then
               aws s3 rm "s3://udacity-${WorkflowID02}" --recursive
